@@ -52,3 +52,18 @@ class Storage:
                 (item.title, item.link, item.content_hash),
             )
             conn.commit()
+
+    def prune_keep_latest(self, limit: int) -> None:
+        if limit <= 0:
+            return
+        with sqlite3.connect(self.db_path) as conn:
+            conn.execute(
+                """
+                DELETE FROM items
+                WHERE id NOT IN (
+                    SELECT id FROM items ORDER BY id DESC LIMIT ?
+                )
+                """,
+                (limit,),
+            )
+            conn.commit()

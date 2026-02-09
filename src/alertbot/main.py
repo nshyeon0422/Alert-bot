@@ -53,6 +53,7 @@ def main() -> None:
                 send_telegram(item, config)
                 storage.mark_seen(item)
             seed_only = False
+            storage.prune_keep_latest(config.max_items)
         except Exception as exc:  # noqa: BLE001
             logging.exception("Polling error: %s", exc)
 

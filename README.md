@@ -11,6 +11,7 @@
 - `KEYWORDS`: 쉼표로 구분한 키워드 목록
 - `USE_KEYWORDS`: 키워드 필터 사용 여부(true/false)
 - `SEED_EXISTING`: 첫 실행 시 기존 글을 저장만 하고 알림을 보내지 않음(true/false)
+- `MAX_ITEMS`: DB에 유지할 최대 글 개수
 - `TELEGRAM_BOT_TOKEN`: 텔레그램 봇 토큰
 - `TELEGRAM_CHAT_ID`: 알림을 받을 채팅 ID
 
@@ -35,6 +36,7 @@ python -m alertbot.main
 - 이미 알림을 보낸 글은 SQLite에 저장되어 중복 전송되지 않습니다.
 - 시작 시 연결 확인 메시지를 전송합니다.
 - `SEED_EXISTING=true`이면 첫 실행 시 기존 글은 저장만 하고 알림을 보내지 않습니다.
+- DB는 `MAX_ITEMS` 개수만 유지되도록 주기적으로 정리합니다.
 
 ## SSL/403 참고
 - `VERIFY_SSL=false`로 설정하면 인증서 검증을 비활성화합니다(보안상 위험하므로 테스트 목적 권장).
