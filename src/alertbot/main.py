@@ -37,21 +37,37 @@ def main() -> None:
     send_startup_message(config)
 
     seed_only = config.seed_existing and storage.is_empty()
+    if config.log_item_decisions:
+        logging.info("DB path: %s", config.state_db_path)
+        logging.info("Seed-only on first run: %s", seed_only)
 
     while True:
         try:
             html = fetch_html(config)
             items = parse_items(html, config)
             for item in items:
+                if config.log_item_decisions:
+                    logging.info(
+                        "Item observed: title=%s link=%s hash=%s",
+                        item.title,
+                        item.link,
+                        item.content_hash,
+                    )
                 if config.use_keywords and not _matches_keywords(item, config.keywords):
                     continue
                 if storage.is_seen(item):
+                    if config.log_item_decisions:
+                        logging.info("Skipping seen item: %s", item.link or item.title)
                     continue
                 if seed_only:
+                    if config.log_item_decisions:
+                        logging.info("Seeding only, not sending: %s", item.link or item.title)
                     storage.mark_seen(item)
                     continue
                 send_telegram(item, config)
                 storage.mark_seen(item)
+                if config.log_item_decisions:
+                    logging.info("Sent item: %s", item.link or item.title)
             seed_only = False
             storage.prune_keep_latest(config.max_items)
         except Exception as exc:  # noqa: BLE001

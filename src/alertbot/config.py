@@ -50,6 +50,7 @@ class Config:
 
     state_db_path: str
     max_items: int
+    log_item_decisions: bool
     log_level: str
 
     @classmethod
@@ -83,6 +84,7 @@ class Config:
             telegram_send_delay_seconds=_parse_int(os.getenv("TELEGRAM_SEND_DELAY_SECONDS"), 1),
             state_db_path=os.getenv("STATE_DB_PATH", "state.db"),
             max_items=_parse_int(os.getenv("MAX_ITEMS"), 30),
+            log_item_decisions=_parse_bool(os.getenv("LOG_ITEM_DECISIONS"), False),
             log_level=os.getenv("LOG_LEVEL", "INFO"),
         )
 

@@ -12,6 +12,7 @@
 - `USE_KEYWORDS`: 키워드 필터 사용 여부(true/false)
 - `SEED_EXISTING`: 첫 실행 시 기존 글을 저장만 하고 알림을 보내지 않음(true/false)
 - `MAX_ITEMS`: DB에 유지할 최대 글 개수
+- `LOG_ITEM_DECISIONS`: 아이템 처리 로그를 자세히 출력(true/false)
 - `TELEGRAM_BOT_TOKEN`: 텔레그램 봇 토큰
 - `TELEGRAM_CHAT_ID`: 알림을 받을 채팅 ID
 
